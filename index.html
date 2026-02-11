@@ -3,88 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Modern Page</title>
+    <title>Dark Mode Project</title>
     <style>
-        /* CSS Variables make it easy to change colors globally */
         :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f8f9fa;
-            --text-main: #333333;
-            --accent: #007bff;
+            --bg-color: #121212;       /* Deep matte black */
+            --card-bg: #1e1e1e;        /* Slightly lighter grey */
+            --text-color: #e0e0e0;     /* Soft white */
+            --accent-color: #bb86fc;   /* Modern purple/neon */
+            --nav-bg: #181818;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 0;
-            background-color: var(--primary-bg);
+            line-height: 1.6;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        /* Page Logic: Hide sections by default */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* This class makes the "active" page visible */
+        .active-page {
+            display: block;
         }
 
         header {
-            background: var(--primary-bg);
-            padding: 2rem;
             text-align: center;
-            border-bottom: 1px solid #eee;
+            padding: 3rem 0;
         }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 1rem;
+        h1, h2 {
+            color: var(--accent-color);
         }
 
-        section {
-            padding: 4rem 10%;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        /* Alternating background for sections to keep it modern */
-        section:nth-child(even) {
-            background-color: var(--secondary-bg);
-        }
-
-        h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: #777;
+            padding: 4rem 0 2rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to My Project</h1>
-        <p>A simple, clean, and modular design.</p>
-    </header>
+    <nav>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('projects')">Projects</a>
+    </nav>
 
-    <main id="content-area">
+    <div class="container">
         
-        <section id="about">
-            <h2>About This Page</h2>
-            <p>This is your first section. It uses a contained width to make sure your text doesn't stretch too far on wide screens, which is a common hallmark of modern design.</p>
-        </section>
+        <div id="home" class="page-content active-page">
+            <header>
+                <h1>Welcome Home</h1>
+                <p>This is your sleek new dark mode landing page.</p>
+            </header>
+            <div class="card">
+                <h2>Getting Started</h2>
+                <p>Click the links in the navigation bar to switch content without reloading the page.</p>
+            </div>
+        </div>
 
-        <section id="new-section">
-            <h2>New Section</h2>
-            <p>You can copy and paste this block to create as many sections as you need!</p>
-        </section>
+        <div id="about" class="page-content">
+            <h2>About Me</h2>
+            <div class="card">
+                <p>This is a separate section that acts like a new page. It's hidden until you click "About".</p>
+            </div>
+        </div>
 
-    </main>
+        <div id="projects" class="page-content">
+            <h2>My Projects</h2>
+            <div class="card">
+                <p>List your cool work here! The dark background makes images and colors pop.</p>
+            </div>
+        </div>
+
+    </div>
 
     <footer>
-        <p>&copy; 2026 My Webpage</p>
+        &copy; 2026 Modern Web Design
     </footer>
+
+    <script>
+        // This simple function switches the visible "page"
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active-page');
+        }
+    </script>
 
 </body>
 </html>
