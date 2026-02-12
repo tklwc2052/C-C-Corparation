@@ -3,58 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | ilikespacedotcom</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Dark Mode Project</title>
+    <style>
+        :root {
+            --bg-color: #121212;       /* Deep matte black */
+            --card-bg: #1e1e1e;        /* Slightly lighter grey */
+            --text-color: #e0e0e0;     /* Soft white */
+            --accent-color: #bb86fc;   /* Modern purple/neon */
+            --nav-bg: #181818;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        /* Page Logic: Hide sections by default */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* This class makes the "active" page visible */
+        .active-page {
+            display: block;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="projects.html" class="active">Projects</a>
-        <a href="minecraft.html">Minecraft</a>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('projects')">Projects</a>
     </nav>
 
     <div class="container">
-        <header>
-            <h1>Active Projects</h1>
-            <p style="color: #94a3b8;">Stuff I'm building, testing, or occasionally breaking.</p>
-        </header>
-
-        <section>
-            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid #818cf8;">
-                <h3>C&C Corp Chat</h3>
-                <p>The main communication hub. Features main chat, private DMs, voice channels, and screen sharing.</p>
-                <div class="tags">
-                    <span class="tag">Web App</span><span class="tag">Node.js</span><span class="tag">In Progress</span>
-                </div>
-                <a href="https://cccorpchat.onrender.com" class="btn-link" target="_blank">Open App &rarr;</a>
+        
+        <div id="home" class="page-content active-page">
+            <header>
+                <h1>Welcome Home</h1>
+                <p>This is your sleek new dark mode landing page.</p>
+            </header>
+            <div class="card">
+                <h2>Getting Started</h2>
+                <p>Click the links in the navigation bar to switch content without reloading the page.</p>
             </div>
+        </div>
 
-            <div class="project-grid">
-                <div class="card">
-                    <h3>Forklift Sim</h3>
-                    <p>A multiplayer online forklift simulation. Currently in physics testing phase.</p>
-                    <div class="tags">
-                        <span class="tag">Gaming</span><span class="tag">Multiplayer</span>
-                    </div>
-                    <a href="#" class="btn-link">Test Sim &rarr;</a>
-                </div>
-
-                <div class="card">
-                    <h3>Retard Client UT13</h3>
-                    <p>Modified Eagler 1.12.2 client. Built for specific community requests and fun tweaks.</p>
-                    <div class="tags">
-                        <span class="tag">Eagler</span><span class="tag">Client</span>
-                    </div>
-                    <a href="#" class="btn-link">Download &rarr;</a>
-                </div>
+        <div id="about" class="page-content">
+            <h2>About Me</h2>
+            <div class="card">
+                <p>This is a separate section that acts like a new page. It's hidden until you click "About".</p>
             </div>
-        </section>
+        </div>
 
-        <footer>
-            <p>Built by space &copy; 2026</p>
-        </footer>
+        <div id="projects" class="page-content">
+            <h2>My Projects</h2>
+            <div class="card">
+                <p>List your cool work here! The dark background makes images and colors pop.</p>
+            </div>
+        </div>
+
     </div>
+
+    <footer>
+        &copy; 2026 Modern Web Design
+    </footer>
+
+    <script>
+        // This simple function switches the visible "page"
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active-page');
+        }
+    </script>
 
 </body>
 </html>
